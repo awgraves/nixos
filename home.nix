@@ -49,8 +49,12 @@
 
   programs.git = {
     enable = true;
-    userName = "Andrew Organist";
-    userEmail = "aorganist@protonmail.com";
+    settings.user = {
+      name = "Andrew Organist";
+      email = "aorganist@protonmail.com";
+    };
+    #userName = "Andrew Organist";
+    #userEmail = "aorganist@protonmail.com";
   };
 
   programs.bash = {
@@ -63,9 +67,8 @@
 
     # set some aliases, feel free to add more or remove some
     shellAliases = {
-      k = "echo what";
       nrs = "sudo nixos-rebuild switch";
-      gc = "sudo nix-collect-garbage";
+      gc = "sudo nix-collect-garbage -d";
     };
   };
 
