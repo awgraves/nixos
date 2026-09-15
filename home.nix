@@ -1,6 +1,10 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
+  imports = [
+    inputs.noctalia.homeModules.default
+  ];
+
   home.username = "andrew";
   home.homeDirectory = "/home/andrew";
 
@@ -60,6 +64,18 @@
     # set some aliases, feel free to add more or remove some
     shellAliases = {
       k = "echo what";
+    };
+  };
+
+  programs.noctalia = {
+    enable = true;
+
+    settings = {
+     theme = {
+       mode="light";
+       source = "builtin";
+       builtin = "Catppuccin";
+      };
     };
   };
 

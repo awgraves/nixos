@@ -21,7 +21,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "thinkpad"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
@@ -70,9 +70,9 @@
      git
      ghostty
      #brave
-     noctalia # batteries-included desktop shell (status bar, colors, wallpapers)
-     fuzzel # launcher (default used by niri)
-     pcmanfm # file manager
+     #noctalia # batteries-included desktop shell (status bar, colors, wallpapers)
+     #fuzzel # launcher (default used by niri)
+     #pcmanfm # file manager
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
