@@ -92,7 +92,7 @@
       { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # proton pass
       { id = "gighmmpiobklfepjocnamgkkbiglidom"; } # ad block
       { id = "dphilobhebphkdjbpfohgikllaljmgbn"; } # simplelogin
-      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
+      { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium C
     ];
   };
 
