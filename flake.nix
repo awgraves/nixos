@@ -26,7 +26,7 @@
 	  home-manager.backupFileExtension = ".bak";
 	  home-manager.extraSpecialArgs = { 
 	    inherit inputs;
-            git-config-dir = "nix-config"; # name of the repo dir in ~
+            git-config-dir = "nixos"; # name of the repo dir in ~
 	  }; # the specialArgs above only work for native nix modules
         }
       ];
