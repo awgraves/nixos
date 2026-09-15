@@ -74,7 +74,7 @@
      theme = {
        mode="light";
        source = "builtin";
-       builtin = "Catppuccin";
+       builtin = "Ayu";
       };
     };
   };

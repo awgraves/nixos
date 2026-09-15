@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "My nixos config entrypoint";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -8,8 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:noctalia-dev/noctalia/cachix"; # use cached binary
+      #inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
