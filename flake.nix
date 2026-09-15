@@ -23,7 +23,11 @@
 	  home-manager.useGlobalPkgs = true;
 	  home-manager.useUserPackages = true;
 	  home-manager.users.andrew = import ./home.nix;
-	  home-manager.extraSpecialArgs = { inherit inputs; }; # the specialArgs above only work for native nix modules
+	  home-manager.backupFileExtension = ".bak";
+	  home-manager.extraSpecialArgs = { 
+	    inherit inputs;
+            git-config-dir = "nix-config"; # name of the repo dir in ~
+	  }; # the specialArgs above only work for native nix modules
         }
       ];
     };

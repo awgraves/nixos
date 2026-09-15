@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, git-config-dir, ... }:
 
 {
   imports = [
@@ -64,18 +64,25 @@
     # set some aliases, feel free to add more or remove some
     shellAliases = {
       k = "echo what";
+      nrs = "sudo nixos-rebuild switch";
+      gc = "sudo nix-collect-garbage";
     };
   };
+
+  # Enable XDG base dir management
+  xdg.enable = true;
+  xdg.configFile."niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${git-config-dir}/app_configs/niri/config.kdl";
 
   programs.noctalia = {
     enable = true;
 
     settings = {
      theme = {
-       mode="light";
-       source = "builtin";
-       builtin = "Ayu";
+       mode="dark";
+       source = "wallpaper";
       };
+
+      foo = "bar";
     };
   };
 
