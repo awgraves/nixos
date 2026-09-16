@@ -1,5 +1,7 @@
 { inputs, config, pkgs, git-config-dir, ... }:
-
+let
+  mkAppConfigSymlink = subdirPath: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${git-config-dir}/app_configs/${subdirPath}";
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -47,6 +49,17 @@
     brave
   ];
 
+  # Enable XDG base dir management
+  xdg.enable = true;
+  xdg.configFile."niri/config.kdl".source = (mkAppConfigSymlink "niri/config.kdl");
+
+  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (mkAppConfigSymlink "noctalia/clockwork_amber.json");
+  xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink "noctalia/settings.toml");
+
+  programs.noctalia = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
     settings.user = {
@@ -69,23 +82,6 @@
     shellAliases = {
       nrs = "sudo nixos-rebuild switch";
       gc = "sudo nix-collect-garbage -d";
-    };
-  };
-
-  # Enable XDG base dir management
-  xdg.enable = true;
-  xdg.configFile."niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${git-config-dir}/app_configs/niri/config.kdl";
-
-  programs.noctalia = {
-    enable = true;
-
-    settings = {
-     theme = {
-       mode="dark";
-       source = "wallpaper";
-      };
-
-      foo = "bar";
     };
   };
 

@@ -110,6 +110,9 @@ input {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
+    // important for noctalia's wallpaper to show
+    background-color "transparent"
+
     // Set gaps around windows in logical pixels.
     gaps 8
 
@@ -261,6 +264,11 @@ layout {
         // bottom 64
     }
 }
+    // for overview, show the noctalia backdrop
+    layer-rule {
+      match namespace="^noctalia-wallpaper"
+      place-within-backdrop true
+    }
 
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
