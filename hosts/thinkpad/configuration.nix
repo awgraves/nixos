@@ -68,6 +68,29 @@
 
   # programs.firefox.enable = true;
   programs.niri.enable = true;
+  # Prevents NixOS from injecting a stripped PATH that shadows niri-session's env
+  systemd.user.services.niri.enableDefaultPath = false;
+
+  # try autologin
+  #services.greetd.settings = rec {
+  #  enable = true;
+  #  initial_session = {
+  #    command = "niri-session";
+  #    user = "andrew";
+  #  };
+  #  default_session = initial_session;
+  #};
+
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --cmd niri-session";
+        user = "greeter";
+      };
+    };
+  };
+
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
