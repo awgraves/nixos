@@ -34,19 +34,7 @@ order = [ "default" ]
     concave_edge_corners = true
     contact_shadow = false
     enabled = true
-    end = [
-        "media",
-        "tray",
-        "notifications",
-        "clipboard",
-        "network",
-        "bluetooth",
-        "volume",
-        "brightness",
-        "battery",
-        "control-center",
-        "session"
-    ]
+    end = [ "tray", "notifications", "network", "bluetooth", "volume", "battery", "control-center", "settings", "session" ]
     font_scale = 1.0
     font_weight = 500
     hover_highlight = true
@@ -67,7 +55,7 @@ order = [ "default" ]
     shadow = true
     show_on_workspace_switch = true
     smart_auto_hide = false
-    start = [ "launcher", "wallpaper", "workspaces" ]
+    start = [ "workspaces", "media" ]
     thickness = 34
     widget_spacing = 6
 
@@ -685,6 +673,9 @@ type = "sysmon"
 [widget.network_tx]
 stat = "net_tx"
 type = "sysmon"
+
+[widget.notifications]
+enabled = false
 
 [widget.output_volume]
 device = "output"
