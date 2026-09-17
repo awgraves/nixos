@@ -2,12 +2,13 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.noctalia-greeter.nixosModules.default
     ];
 
   nix.settings = {
@@ -89,16 +90,43 @@
   #  };
   #  default_session = initial_session;
   #};
-
-  services.greetd = {
+  services.displayManager.noctalia-greeter = {
     enable = true;
-    settings = rec {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --cmd niri-session";
-        user = "greeter";
+    passwordless-sync-users = ["andrew"];
+    settings = {
+      cursor = {
+        theme = "everforest-cursors";
+        size = 32;
+        path = "${pkgs.everforest-cursors}/share/icons";
       };
     };
   };
+  security.polkit = {
+    enable = true;
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        var allowedUsers = ["andrew"];
+
+        if (action.id == "org.noctalia.greeter.sync-appearance" &&
+            action.lookup("program") == "${pkgs.noctalia-greeter}/bin/noctalia-greeter-apply-appearance" &&
+            action.lookup("user") == "root" &&
+            subject.local && subject.active &&
+            allowedUsers.indexOf(subject.user) >= 0) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
+  };
+
+  #services.greetd = {
+  #  enable = true;
+  #  settings = rec {
+  #    default_session = {
+  #      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --cmd niri-session";
+  #      user = "greeter";
+  #    };
+  #  };
+  #};
 
 
   # List packages installed in system profile.

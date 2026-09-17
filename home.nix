@@ -30,6 +30,7 @@ in
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    everforest-cursors
     fastfetch
 
     # utils
@@ -66,8 +67,6 @@ in
       name = "Andrew Organist";
       email = "aorganist@protonmail.com";
     };
-    #userName = "Andrew Organist";
-    #userEmail = "aorganist@protonmail.com";
   };
 
   programs.bash = {
