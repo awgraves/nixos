@@ -146,9 +146,9 @@ layout {
     // preset-window-heights { }
 
     // You can change the default width of the new windows.
-    // default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.5; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
-     default-column-width {}
+     // default-column-width {}
 
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
@@ -321,7 +321,7 @@ animations {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 window-rule {
-   opacity 0.92
+   opacity 0.95
 }
 
 // Work around WezTerm's initial configure bug
