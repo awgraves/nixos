@@ -48,6 +48,7 @@ in
 
     # apps
     brave
+    gnome-calculator
   ];
 
   # Enable XDG base dir management
