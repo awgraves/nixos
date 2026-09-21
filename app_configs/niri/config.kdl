@@ -321,7 +321,7 @@ animations {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 window-rule {
-   opacity 0.95
+   opacity 0.97
 }
 
 // Work around WezTerm's initial configure bug

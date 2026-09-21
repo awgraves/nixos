@@ -579,8 +579,8 @@ swap_pct_activity_threshold = 20.0
 swap_pct_critical_threshold = 80.0
 
 [theme]
-builtin = "Tokyo-Night"
-community_palette = "Creamy Forest"
+builtin = "Gruvbox"
+community_palette = "Gruvbox Material"
 custom_palette = "clockwork_amber"
 mode = "dark"
 pure_black_dark = false

@@ -37,6 +37,7 @@ in
     #ripgrep # recursively searches directories for a regex pattern
     #fzf # A command-line fuzzy finder
     lazygit
+    devenv
 
     # networking tools
     dnsutils  # `dig` + `nslookup`
@@ -49,6 +50,7 @@ in
     # apps
     brave
     gnome-calculator
+    helix
   ];
 
   # Enable XDG base dir management
@@ -57,6 +59,8 @@ in
 
   xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (mkAppConfigSymlink "noctalia/clockwork_amber.json");
   xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink "noctalia/settings.toml");
+
+  xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink "helix/config.toml");
 
   programs.noctalia = {
     enable = true;
@@ -76,6 +80,7 @@ in
     # TODO add your custom bashrc here
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
+      eval "$(devenv hook bash)"
     '';
 
     # set some aliases, feel free to add more or remove some
