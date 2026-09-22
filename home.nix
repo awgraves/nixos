@@ -9,6 +9,9 @@ in {
   home.homeDirectory = "/home/andrew"; 
   home.sessionVariables.EDITOR = "hx";
 
+  # user frontend, auto detects and mounts usb devices
+  services.udiskie.enable = true;
+
   # Import files from the current configuration directory into the Nix 
   # store, and create symbolic links pointing to those store files in 
   # the Home directory.

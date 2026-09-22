@@ -52,6 +52,10 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", TAG+="uaccess"
   '';
 
+  # root/system-level backend allowing automatic usb mounts
+  # see home.nix for the user-facing frontend
+  services.udisks2.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
