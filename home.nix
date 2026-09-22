@@ -55,6 +55,8 @@ in {
   xdg.enable = true;
   xdg.configFile."niri/config.kdl".source = 
   (mkAppConfigSymlink "niri/config.kdl");
+  xdg.configFile."niri/noctalia.kdl".source = 
+  (mkAppConfigSymlink "niri/noctalia.kdl");
 
   xdg.configFile."noctalia/palettes/clockwork_amber.json".source = 
   (mkAppConfigSymlink "noctalia/clockwork_amber.json"); 
