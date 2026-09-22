@@ -48,6 +48,9 @@
 
   services.upower.enable = true; # for battery indicator
 
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", TAG+="uaccess"
+  '';
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -72,7 +75,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.andrew = {
      isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "dialout" ]; # Enable ‘sudo’ for the user.
      packages = with pkgs; [
        tree
      ];

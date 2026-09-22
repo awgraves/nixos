@@ -87,6 +87,7 @@ in
     shellAliases = {
       nrs = "sudo nixos-rebuild switch";
       gc = "sudo nix-collect-garbage -d";
+      rep = "cd ~/repos";
     };
   };
 
