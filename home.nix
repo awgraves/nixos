@@ -1,48 +1,43 @@
-{ inputs, config, pkgs, git-config-dir, ... }:
-let
-  mkAppConfigSymlink = subdirPath: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${git-config-dir}/app_configs/${subdirPath}";
-in
-{
+{ inputs, config, pkgs, git-config-dir, ... }: let
+  mkAppConfigSymlink = subdirPath: config.lib.file.mkOutOfStoreSymlink 
+  "${config.home.homeDirectory}/${git-config-dir}/app_configs/${subdirPath}";
+in {
   imports = [
-    inputs.noctalia.homeModules.default
-  ];
+    inputs.noctalia.homeModules.default ];
 
-  home.username = "andrew";
-  home.homeDirectory = "/home/andrew";
+  home.username = "andrew"; 
+  home.homeDirectory = "/home/andrew"; 
+  home.sessionVariables.EDITOR = "hx";
 
-  # Import files from the current configuration directory into the Nix store,
-  # and create symbolic links pointing to those store files in the Home directory.
+  # Import files from the current configuration directory into the Nix 
+  # store, and create symbolic links pointing to those store files in 
+  # the Home directory.
 
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
-  # Import the scripts directory into the Nix store,
-  # and recursively generate symbolic links in the Home directory pointing to the files in the store.
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
+  # Import the scripts directory into the Nix store, and recursively 
+  # generate symbolic links in the Home directory pointing to the files 
+  # in the store. home.file.".config/i3/scripts" = {
+  #   source = ./scripts; recursive = true; # link recursively 
+  #   executable = true; # make all files executable
   # };
 
-  # encode the file content in nix configuration file directly
+  # encode the file content in nix configuration file directly 
   # home.file.".xxx".text = ''
-  #     xxx
-  # '';
+  #     xxx '';
 
   # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
-    everforest-cursors
-    fastfetch
+  home.packages = with pkgs; [ everforest-cursors fastfetch
 
-    # utils
-    #ripgrep # recursively searches directories for a regex pattern
-    #fzf # A command-line fuzzy finder
-    lazygit
-    devenv
-
+    # dev utils ripgrep # recursively searches directories for a regex 
+    #pattern fzf # A command-line fuzzy finder
+    lazygit devenv
+    
     # networking tools
-    dnsutils  # `dig` + `nslookup`
+    dnsutils # `dig` + `nslookup`
     nmap # A utility for network discovery and security auditing
 
+    # hardware
     lm_sensors # for `sensors` command
     pciutils # lspci
     usbutils # lsusb
@@ -55,15 +50,26 @@ in
 
   # Enable XDG base dir management
   xdg.enable = true;
-  xdg.configFile."niri/config.kdl".source = (mkAppConfigSymlink "niri/config.kdl");
+  xdg.configFile."niri/config.kdl".source = 
+  (mkAppConfigSymlink "niri/config.kdl");
 
-  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (mkAppConfigSymlink "noctalia/clockwork_amber.json");
-  xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink "noctalia/settings.toml");
+  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = 
+  (mkAppConfigSymlink "noctalia/clockwork_amber.json"); 
+  xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink 
+  "noctalia/settings.toml");
 
-  xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink "helix/config.toml");
+  xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink 
+  "helix/config.toml");
 
   programs.noctalia = {
     enable = true;
+  };
+
+  programs.yazi = {
+    enable = true;
+    settings = {
+      manager.show_hidden = true;
+    };
   };
 
   programs.git = {
@@ -88,26 +94,26 @@ in
       nrs = "sudo nixos-rebuild switch";
       gc = "sudo nix-collect-garbage -d";
       rep = "cd ~/repos";
+      y = "yazi";
     };
   };
 
   programs.brave = {
     enable = true;
     extensions = [
-      { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # proton pass
-      { id = "gighmmpiobklfepjocnamgkkbiglidom"; } # ad block
-      { id = "dphilobhebphkdjbpfohgikllaljmgbn"; } # simplelogin
+      { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # proton pass 
+      { id = "gighmmpiobklfepjocnamgkkbiglidom"; } # ad block 
+      { id = "dphilobhebphkdjbpfohgikllaljmgbn"; } # simplelogin 
       { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium C
     ];
   };
 
-  # This value determines the home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new home Manager release introduces backwards
-  # incompatible changes.
+  # This value determines the home Manager release that your 
+  # configuration is compatible with. This helps avoid breakage when a 
+  # new home Manager release introduces backwards incompatible changes.
   #
-  # You can update home Manager without changing this value. See
-  # the home Manager release notes for a list of state version
-  # changes in each release.
+  # You can update home Manager without changing this value. See the 
+  # home Manager release notes for a list of state version changes in 
+  # each release.
   home.stateVersion = "26.05";
 }

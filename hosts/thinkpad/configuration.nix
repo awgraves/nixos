@@ -106,6 +106,7 @@
       };
     };
   };
+  # security polkit needed per noctalia docs
   security.polkit = {
     enable = true;
     extraConfig = ''
@@ -138,14 +139,13 @@
   # You can use https://search.nixos.org/ to find more packages (and options).
    environment.systemPackages = with pkgs; [
      wget
-     neovim
      git
      ghostty
-     #brave
-     #noctalia # batteries-included desktop shell (status bar, colors, wallpapers)
-     #fuzzel # launcher (default used by niri)
-     #pcmanfm # file manager
+     helix
    ];
+
+   # set helix as default editor
+   environment.variables.EDITOR = "hx";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
