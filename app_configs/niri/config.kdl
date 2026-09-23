@@ -324,6 +324,11 @@ window-rule {
    opacity 0.97
 }
 
+window-rule {
+    match app-id="mpv"
+    opacity 1.0
+}   
+
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {

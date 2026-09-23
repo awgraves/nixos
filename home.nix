@@ -30,11 +30,15 @@ in {
   #     xxx '';
 
   # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [ everforest-cursors fastfetch
+  home.packages = with pkgs; [
+    # aesthetics
+    everforest-cursors
+    fastfetch
 
-    # dev utils ripgrep # recursively searches directories for a regex 
-    #pattern fzf # A command-line fuzzy finder
-    lazygit devenv
+    # dev utils
+    lazygit
+    devenv
+    helix
     
     # networking tools
     dnsutils # `dig` + `nslookup`
@@ -45,11 +49,22 @@ in {
     pciutils # lspci
     usbutils # lsusb
 
-    # apps
+    # media
+    kdePackages.kdenlive
+
+    # misc apps
     brave
     gnome-calculator
-    helix
   ];
+
+  # video player
+  programs.mpv = {
+    enable = true;
+    scripts = with pkgs.mpvScripts; [
+      thumbfast # generate thumbnail previews
+      uosc # should display them
+    ];
+  };
 
   # Enable XDG base dir management
   xdg.enable = true;
@@ -72,8 +87,19 @@ in {
 
   programs.yazi = {
     enable = true;
+    keymap = {
+      mgr.prepend_keymap = [
+        {
+         on = ["g" "m"];
+         run = "cd /run/media/$USER";
+          desc = "Go to media";
+        } 
+      ];
+    };
     settings = {
-      manager.show_hidden = true;
+      mgr = {
+        sort_by = "natural";
+      };
     };
   };
 
