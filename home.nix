@@ -51,7 +51,7 @@ in {
 
     # media
     kdePackages.kdenlive
-    wf-recorder
+    gpu-screen-recorder
 
     # misc apps
     brave

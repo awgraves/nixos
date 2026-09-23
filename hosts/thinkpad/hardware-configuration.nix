@@ -28,4 +28,9 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # needed for gpu screenrecord
+  hardware.graphics.extraPackages = with pkgs; [
+    # Intel (Gen 8+ / Skylake and newer)
+    intel-media-driver
+  ];
 }

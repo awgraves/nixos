@@ -385,6 +385,7 @@ binds {
     Mod+Escape hotkey-overlay-title="System Shutdown Menu" { spawn-sh "noctalia msg panel-toggle session"; }
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Super+Shift+B hotkey-overlay-title="Open Brave Browser" { spawn "brave"; }
+    Super+Shift+R hotkey-overlay-title="Toggle screen recording" { spawn-sh "noctalia msg plugin noctalia/screen_recorder:service all toggle"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
