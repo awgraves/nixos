@@ -24,7 +24,7 @@
 
   outputs = {self, nixpkgs, home-manager, ...}@inputs:
   let
-    hosts = ["thinkpad"];
+    hosts = ["thinkpad" "dell"];
     mkHost = host: nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; }; # set all input params to be accessible in submodules
       modules = [

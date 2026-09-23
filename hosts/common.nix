@@ -30,16 +30,6 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
-    settings = {
-      Policy = {
-        AutoEnable = false;
-      };
-    };
-  };
-
   services.upower.enable = true; # for battery indicator
 
   services.udev.extraRules = ''

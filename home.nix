@@ -61,10 +61,6 @@ in {
   # video player
   programs.mpv = {
     enable = true;
-    scripts = with pkgs.mpvScripts; [
-      thumbfast # generate thumbnail previews
-      uosc # should display them
-    ];
   };
 
   # Enable XDG base dir management
@@ -78,6 +74,15 @@ in {
 
   programs.noctalia = {
     enable = true;
+  };
+
+  programs.ghostty = {
+    enable = true;
+    package = pkgs.ghostty; # or pkgs.ghostty-bin on macOS
+
+    settings = {
+      confirm-close-surface = false;
+    };
   };
 
   programs.yazi = {
