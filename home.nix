@@ -51,6 +51,7 @@ in {
 
     # media
     kdePackages.kdenlive
+    wf-recorder
 
     # misc apps
     brave
@@ -68,18 +69,12 @@ in {
 
   # Enable XDG base dir management
   xdg.enable = true;
-  xdg.configFile."niri/config.kdl".source = 
-  (mkAppConfigSymlink "niri/config.kdl");
-  xdg.configFile."niri/noctalia.kdl".source = 
-  (mkAppConfigSymlink "niri/noctalia.kdl");
+  xdg.configFile."niri/config.kdl".source = (mkAppConfigSymlink "niri/config.kdl");
 
-  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = 
-  (mkAppConfigSymlink "noctalia/clockwork_amber.json"); 
-  xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink 
-  "noctalia/settings.toml");
+  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (mkAppConfigSymlink "noctalia/clockwork_amber.json"); 
+  xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink "noctalia/settings.toml");
 
-  xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink 
-  "helix/config.toml");
+  xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink "helix/config.toml");
 
   programs.noctalia = {
     enable = true;
