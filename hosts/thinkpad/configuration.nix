@@ -9,7 +9,11 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "thinkpad"; # Define your hostname.
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "thinkpad";
 
   hardware.bluetooth = {
     enable = true;

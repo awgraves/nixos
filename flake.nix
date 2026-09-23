@@ -24,17 +24,6 @@
 
   outputs = {self, nixpkgs, home-manager, ...}@inputs:
   let
-    common-home-manager-settings = { 
-        	  home-manager.useGlobalPkgs = true;
-        	  home-manager.useUserPackages = true;
-        	  home-manager.users.andrew = import ./home.nix;
-        	  home-manager.backupFileExtension = ".bak";
-        	  home-manager.extraSpecialArgs = { 
-        	    inherit inputs;
-              git-config-dir = "nixos"; # name of the repo dir in ~
-        	  }; # the specialArgs above only work for native nix modules
-          };
-
     hosts = ["thinkpad"];
     mkHost = host: nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; }; # set all input params to be accessible in submodules
@@ -42,7 +31,16 @@
         ./hosts/common.nix
         ./hosts/${host}/configuration.nix
         home-manager.nixosModules.home-manager
-        common-home-manager-settings
+        { 
+      	  home-manager.useGlobalPkgs = true;
+      	  home-manager.useUserPackages = true;
+      	  home-manager.users.andrew = import ./home.nix;
+      	  home-manager.backupFileExtension = ".bak";
+      	  home-manager.extraSpecialArgs = { 
+      	    inherit inputs;
+            git-config-dir = "nixos"; # name of the repo dir in ~
+      	  }; # the specialArgs above only work for native nix modules
+        }
       ];
     };
   in
