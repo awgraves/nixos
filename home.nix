@@ -78,7 +78,6 @@ in {
 
   programs.ghostty = {
     enable = true;
-    package = pkgs.ghostty; # or pkgs.ghostty-bin on macOS
 
     settings = {
       confirm-close-surface = false;
