@@ -68,7 +68,7 @@ in {
   xdg.configFile."niri/config.kdl".source = (mkAppConfigSymlink "niri/config.kdl");
 
   xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (mkAppConfigSymlink "noctalia/clockwork_amber.json"); 
-  xdg.stateFile."noctalia/settings.toml".source = (mkAppConfigSymlink "noctalia/settings.toml");
+  xdg.configFile."noctalia/config.toml".source = (mkAppConfigSymlink "noctalia/config.toml");
 
   xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink "helix/config.toml");
 
