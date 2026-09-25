@@ -1,31 +1,41 @@
-{ inputs, config, pkgs, git-config-dir, ... }: let
-  mkAppConfigSymlink = subdirPath: config.lib.file.mkOutOfStoreSymlink 
-  "${config.home.homeDirectory}/${git-config-dir}/app_configs/${subdirPath}";
-in {
+{
+  inputs,
+  config,
+  pkgs,
+  git-config-dir,
+  ...
+}:
+let
+  mkAppConfigSymlink =
+    subdirPath:
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${git-config-dir}/app_configs/${subdirPath}";
+in
+{
   imports = [
-    inputs.noctalia.homeModules.default ];
+    inputs.noctalia.homeModules.default
+  ];
 
-  home.username = "andrew"; 
-  home.homeDirectory = "/home/andrew"; 
+  home.username = "andrew";
+  home.homeDirectory = "/home/andrew";
   home.sessionVariables.EDITOR = "hx";
 
   # user frontend, auto detects and mounts usb devices
   services.udiskie.enable = true;
 
-  # Import files from the current configuration directory into the Nix 
-  # store, and create symbolic links pointing to those store files in 
+  # Import files from the current configuration directory into the Nix
+  # store, and create symbolic links pointing to those store files in
   # the Home directory.
 
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
-  # Import the scripts directory into the Nix store, and recursively 
-  # generate symbolic links in the Home directory pointing to the files 
+  # Import the scripts directory into the Nix store, and recursively
+  # generate symbolic links in the Home directory pointing to the files
   # in the store. home.file.".config/i3/scripts" = {
-  #   source = ./scripts; recursive = true; # link recursively 
+  #   source = ./scripts; recursive = true; # link recursively
   #   executable = true; # make all files executable
   # };
 
-  # encode the file content in nix configuration file directly 
+  # encode the file content in nix configuration file directly
   # home.file.".xxx".text = ''
   #     xxx '';
 
@@ -38,8 +48,7 @@ in {
     # dev utils
     lazygit
     devenv
-    helix
-    
+
     # networking tools
     dnsutils # `dig` + `nslookup`
     nmap # A utility for network discovery and security auditing
@@ -67,10 +76,36 @@ in {
   xdg.enable = true;
   xdg.configFile."niri/config.kdl".source = (mkAppConfigSymlink "niri/config.kdl");
 
-  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (mkAppConfigSymlink "noctalia/clockwork_amber.json"); 
+  xdg.configFile."noctalia/palettes/clockwork_amber.json".source = (
+    mkAppConfigSymlink "noctalia/clockwork_amber.json"
+  );
   xdg.configFile."noctalia/config.toml".source = (mkAppConfigSymlink "noctalia/config.toml");
 
-  xdg.configFile."helix/config.toml".source = (mkAppConfigSymlink "helix/config.toml");
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "gruvbox-material";
+      editor.cursor-shape = {
+        insert = "bar";
+        normal = "block";
+        select = "underline";
+      };
+      # keys.normal.space = {
+      #   l = ":run-shell-command kitten quick-access-terminal lazygit";
+      # };
+    };
+    languages.language = [
+      {
+        name = "c";
+        auto-format = true;
+      }
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+      }
+    ];
+  };
 
   programs.noctalia = {
     enable = true;
@@ -89,10 +124,13 @@ in {
     keymap = {
       mgr.prepend_keymap = [
         {
-         on = ["g" "m"];
-         run = "cd /run/media/$USER";
+          on = [
+            "g"
+            "m"
+          ];
+          run = "cd /run/media/$USER";
           desc = "Go to media";
-        } 
+        }
       ];
     };
     settings = {
@@ -131,19 +169,19 @@ in {
   programs.brave = {
     enable = true;
     extensions = [
-      { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # proton pass 
-      { id = "gighmmpiobklfepjocnamgkkbiglidom"; } # ad block 
-      { id = "dphilobhebphkdjbpfohgikllaljmgbn"; } # simplelogin 
+      { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # proton pass
+      { id = "gighmmpiobklfepjocnamgkkbiglidom"; } # ad block
+      { id = "dphilobhebphkdjbpfohgikllaljmgbn"; } # simplelogin
       { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium C
     ];
   };
 
-  # This value determines the home Manager release that your 
-  # configuration is compatible with. This helps avoid breakage when a 
+  # This value determines the home Manager release that your
+  # configuration is compatible with. This helps avoid breakage when a
   # new home Manager release introduces backwards incompatible changes.
   #
-  # You can update home Manager without changing this value. See the 
-  # home Manager release notes for a list of state version changes in 
+  # You can update home Manager without changing this value. See the
+  # home Manager release notes for a list of state version changes in
   # each release.
   home.stateVersion = "26.05";
 }
