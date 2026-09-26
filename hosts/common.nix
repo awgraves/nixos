@@ -2,23 +2,36 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      inputs.noctalia-greeter.nixosModules.default
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    inputs.noctalia-greeter.nixosModules.default
+  ];
+
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
 
     # allow pre-built binary cache from noctalia
     # on subsequent rebuilds
     extra-substituters = [ "https://noctalia.cachix.org" ];
-    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
 
-    trusted-users = ["andrew"];
+    trusted-users = [ "andrew" ];
   };
 
   nix.gc = {
@@ -61,16 +74,19 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.andrew = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" "dialout" ]; # Enable ‘sudo’ for the user.
-     packages = with pkgs; [
-       tree
-     ];
-   };
+  users.users.andrew = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "dialout"
+    ]; # Enable ‘sudo’ for the user.
+  };
 
   # programs.firefox.enable = true;
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+  };
   # Prevents NixOS from injecting a stripped PATH that shadows niri-session's env
   systemd.user.services.niri.enableDefaultPath = false;
 
@@ -85,7 +101,7 @@
   #};
   services.displayManager.noctalia-greeter = {
     enable = true;
-    passwordless-sync-users = ["andrew"];
+    passwordless-sync-users = [ "andrew" ];
     settings = {
       cursor = {
         theme = "everforest-cursors";
@@ -122,17 +138,17 @@
   #  };
   #};
 
-
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-   environment.systemPackages = with pkgs; [
-     wget
-     git
-     helix
-   ];
+  environment.systemPackages = with pkgs; [
+    wget
+    git
+    helix
+    xwayland-satellite
+  ];
 
-   # set helix as default editor
-   environment.variables.EDITOR = "hx";
+  # set helix as default editor
+  environment.variables.EDITOR = "hx";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -178,4 +194,3 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }
-

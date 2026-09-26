@@ -344,6 +344,12 @@ window-rule {
     open-maximized true
 }
 
+window-rule {
+    match app-id="steam"
+    open-fullscreen true
+    opacity 1.0
+}
+
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
