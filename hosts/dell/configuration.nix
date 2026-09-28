@@ -2,13 +2,18 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -16,6 +21,9 @@
   # boot.kernelModules = ["dell-smbios"];
 
   networking.hostName = "dell";
+  # disabling for orca-slicer to comm with bambu printer
+  # reasonably safe to disable as no publicly exposed devices on LAN
+  networking.firewall.enable = false;
 
   hardware.bluetooth = {
     enable = true;
@@ -26,6 +34,10 @@
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    orca-slicer # needed to downgrade bambu network plugin to the legacy within orca preferences
+  ];
 
   # Fix for the loud fan on idle issue
   boot.kernelParams = [ "dell_smm_hwmon.ignore_dmi=1" ];
@@ -39,7 +51,11 @@
       Type = "simple";
       User = "root";
     };
-    path = [ pkgs.coreutils pkgs.procps pkgs.gawk ];
+    path = [
+      pkgs.coreutils
+      pkgs.procps
+      pkgs.gawk
+    ];
     script = ''
       set -euo pipefail
 
@@ -74,4 +90,4 @@
       done
     '';
   };
-}  
+}
