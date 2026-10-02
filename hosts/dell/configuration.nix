@@ -37,7 +37,11 @@
 
   environment.systemPackages = with pkgs; [
     orca-slicer # needed to downgrade bambu network plugin to the legacy within orca preferences
+    sigrok-firmware-fx2lafw # needed for pulseview
   ];
+
+  programs.pulseview.enable = true;
+  hardware.saleae-logic.enable = true; # needed for pulseview
 
   # Fix for the loud fan on idle issue
   boot.kernelParams = [ "dell_smm_hwmon.ignore_dmi=1" ];
