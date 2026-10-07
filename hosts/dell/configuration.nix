@@ -38,6 +38,7 @@
   environment.systemPackages = with pkgs; [
     orca-slicer # needed to downgrade bambu network plugin to the legacy within orca preferences
     sigrok-firmware-fx2lafw # needed for pulseview
+    kicad
   ];
 
   programs.pulseview.enable = true;
