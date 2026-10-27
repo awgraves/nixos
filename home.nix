@@ -90,9 +90,6 @@ in
         normal = "block";
         select = "underline";
       };
-      # keys.normal.space = {
-      #   l = ":run-shell-command kitten quick-access-terminal lazygit";
-      # };
     };
     languages.language = [
       {
