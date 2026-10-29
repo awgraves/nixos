@@ -4,5 +4,5 @@ map L nextTab
 map H previousTab
 map J moveTabRight
 map K moveTabLeft
-map <c-s-o> goBack
-map <c-s-i> goForward
+map <c-o> goBack
+map <c-i> goForward
